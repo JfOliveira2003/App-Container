@@ -1,1 +1,33 @@
+name: Input example
+run-name: Runned by ${{github.actor}}
+on:
+    workflow_dispatch: 
+        inputs:
+            version:
+                type: string
+                required: true
+                default: "dev"
+                description: "New version of the release"
+            deployable:
+                type: boolean
+                required: true
+                default: false
+                description: "Make or not the deploy"
+            environment:
+                type: choice
+                description: "What environment to make the workflow"
+                required: true
+                options:
+                    - Homolog
+                    - Development
+                    - Test
 
+jobs:
+    input_values:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Displaying the complet input context 
+              run: echo ${{inputs}}
+            - name: displaying the values lonely
+              run: |
+                echo "These are the values:"
