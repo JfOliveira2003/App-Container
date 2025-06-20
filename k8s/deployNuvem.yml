@@ -12,17 +12,17 @@ spec:
         app: postgresql
     spec:
       containers:
-      - name: postgresql
-        image: postgres:15.0
-        env:
-        - name: POSTGRES_PASSWORD
-          value: "Pg#123"
-        - name: POSTGRES_USER
-          value: "kubenews"
-        - name: POSTGRES_DB
-          value: "kubenews"
-        ports:
-        - containerPort: 5432
+        - name: postgresql
+          image: postgres:15.0
+          env:
+            - name: POSTGRES_PASSWORD
+              value: "Pg#123"
+            - name: POSTGRES_USER
+              value: "kubenews"
+            - name: POSTGRES_DB
+              value: "kubenews"
+          ports:
+            - containerPort: 5432
 ---
 apiVersion: v1
 kind: Service
@@ -32,8 +32,8 @@ spec:
   selector:
     app: postgresql
   ports:
-  - port: 5432
-    targetPort: 5432
+    - port: 5432
+      targetPort: 5432
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -50,19 +50,19 @@ spec:
         app: k8s
     spec:
       containers:
-      - name: k8s
-        image: yosepholiver/k8s-node:v1
-        ports:
-        - containerPort: 8080
-        env:
-        - name: DB_DATABASE
-          value: "kubenews"
-        - name: DB_USERNAME
-          value: "kubenews"
-        - name: DB_PASSWORD
-          value: "Pg#123"
-        - name: DB_HOST
-          value: "postgresql"
+        - name: k8s
+          image: yosepholiver/app-container:v1
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_DATABASE
+              value: "kubenews"
+            - name: DB_USERNAME
+              value: "kubenews"
+            - name: DB_PASSWORD
+              value: "Pg#123"
+            - name: DB_HOST
+              value: "postgresql"
 ---
 apiVersion: v1
 kind: Service
@@ -72,6 +72,5 @@ spec:
   selector:
     app: k8s
   ports:
-  - port: 80
-    targetPort: 8080
-
+    - port: 80
+      targetPort: 8080

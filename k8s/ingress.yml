@@ -3,14 +3,21 @@ kind: Ingress
 metadata:
   name: fabricio-ingress
   annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    #nginx.ingress.kubernetes.io/use-regex: "true"
+
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /(.*)
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app-svc
+                port:
+                  number: 80
+          - path: /
             pathType: Prefix
             backend:
               service:

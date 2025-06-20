@@ -16,11 +16,20 @@ spec:
         image: postgres:15.0
         env:
         - name: POSTGRES_PASSWORD
-          value: "Pg#123"
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DB_PASSWORD
         - name: POSTGRES_USER
-          value: "kubenews"
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DB_USERNAME
         - name: POSTGRES_DB
-          value: "kubenews"
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DB_DATABASE
         ports:
         - containerPort: 5432
 ---
@@ -56,13 +65,25 @@ spec:
         - containerPort: 8080
         env:
         - name: DB_DATABASE
-          value: "kubenews"
+          valueFrom:
+            configMapKeyRef:
+                name: app-config
+                key: DB_DATABASE
         - name: DB_USERNAME
-          value: "kubenews"
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DB_USERNAME
         - name: DB_PASSWORD
-          value: "Pg#123"
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DB_PASSWORD
         - name: DB_HOST
-          value: "postgresql"
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DB_HOST
 ---
 apiVersion: v1
 kind: Service
