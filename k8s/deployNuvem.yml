@@ -51,7 +51,7 @@ spec:
     spec:
       containers:
         - name: k8s
-          image: yosepholiver/app-container:v1
+          image: fabricioveronez/kube-news:v1
           ports:
             - containerPort: 8080
           env:

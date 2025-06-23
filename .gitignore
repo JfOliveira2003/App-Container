@@ -105,3 +105,4 @@ node_modules/
 
 *.Identifier
 .dockerignore
+token.txt
